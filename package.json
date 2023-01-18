@@ -1,0 +1,23 @@
+{
+  "name": "login-signup-server",
+  "version": "1.0.0",
+  "description": "server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rohit1173/LogIn-SignUp-Server.git"
+  },
+  "author": "ROHIT",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rohit1173/LogIn-SignUp-Server/issues"
+  },
+  "homepage": "https://github.com/Rohit1173/LogIn-SignUp-Server#readme",
+  "dependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
