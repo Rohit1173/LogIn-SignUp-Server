@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/Rohit1173/LogIn-SignUp-Server#readme",
   "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.8.4",
     "nodemon": "^2.0.20"
   }
 }
