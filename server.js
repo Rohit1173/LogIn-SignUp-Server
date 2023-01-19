@@ -50,7 +50,6 @@ app.post('/signup', async (req, res) => {
   try{
     let userName = req.body.userName
     let userEmail = req.body.userEmail
-    let userPassword= req.body.userPassword
     console.log(req.body)
     let x=await User.findOne({userName: userName});
     let y=await User.findOne({userEmail: userEmail});
