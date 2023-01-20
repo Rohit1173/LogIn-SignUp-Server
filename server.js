@@ -1,7 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const User = require('./user')
-const ip=require('ip')
 const bodyParser = require("body-parser");
 
 require("dotenv").config();
@@ -42,7 +41,7 @@ app.post('/login',async (req, res) => {
   }
   catch(err){
     console.error(err);
-    res.status(400).json({status: 0, message: error});
+    res.status(400).json({status: 0, message: err});
   }
 
 })
@@ -75,7 +74,7 @@ app.post('/signup', async (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Server running at http://${ip.address()}:${port}`);
+  console.log(`Example app listening on port ${port}`)
 });
 
 module.exports=app;
