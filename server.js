@@ -14,9 +14,13 @@ app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
 mongoose.set('strictQuery', true);
-mongoose.connect(process.env.DATABASE, { useNewUrlParser: true }, () => {
-  console.log("Connected to MongoDB");
-});
+mongoose.connect(
+  process.env.MONGO_URL,
+  { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
+  () => {
+    console.log('Connected to MongoDB');
+  }
+);
 
 
 
