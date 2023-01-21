@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const User = require('./user')
 const bodyParser = require("body-parser");
+const cors = require('cors');
 
 require("dotenv").config();
 require("dotenv/config");
@@ -9,19 +10,24 @@ require("dotenv/config");
 
 const app = express()
 const port = 3000
-
+app.use(cors())
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
 mongoose.set('strictQuery', true);
-mongoose.connect(
-  process.env.MONGO_URL,
-  { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
-  () => {
-    console.log('Connected to MongoDB');
-  }
-);
 
+const connectDatabase = async () => {
+  try {    
+    await mongoose.connect(process.env.DATABASE);
+
+    console.log("connected to database");
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+};
+
+connectDatabase();
 
 
 app.get('/', (req, res) => {
