@@ -115,12 +115,15 @@ app.get("/jwt",(req, res) => {
       const token = req.get("auth-token");
       const verfied=jwt.verify(token,secretKey);
       if(verfied){
-        return res.status(200).json({status: 1, message: "SUCCESSFULLY VERIFIED"});
+        console.log("SUCCESSFULLY VERIFIED")
+         res.status(200).json({status: 1, message: "SUCCESSFULLY VERIFIED"});
         }else{
-            return res.status(401).json({status: 0, message: "NOT VERFIED"});
+          console.log("NOT VERIFIED")
+             res.status(401).json({status: 0, message: "NOT VERFIED"});
         }
     } catch (error) {
-        return res.status(401).json({status: 0, message: error.message});
+      console.log(error.message)
+         res.status(401).json({status: 0, message: error.message});
     }
 });
 
