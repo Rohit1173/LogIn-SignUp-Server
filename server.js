@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require('cors');
 const jwt = require("jsonwebtoken");
 const bcrypt=require("bcrypt")
-
+const nodemailer = require('nodemailer');
 
 require("dotenv").config();
 require("dotenv/config");
@@ -31,6 +31,15 @@ const connectDatabase = async () => {
 };
 
 connectDatabase();
+
+
+let transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.email,
+    pass: process.env.pass
+  }
+});
 
 
 app.get('/', (req, res) => {
@@ -111,9 +120,39 @@ app.get("/jwt",(req, res) => {
             return res.status(401).json({status: 0, message: "NOT VERFIED"});
         }
     } catch (error) {
-        return res.status(401).json({status: 0, message: ERR});
+        return res.status(401).json({status: 0, message: error.message});
     }
 });
+
+app.post('/otp',async (req, res) => {
+  try{
+    let userEmail=req.body.userEmail
+    let mailOptions = {
+      from: process.env.email,
+      to: userEmail,
+      subject: 'Sending Email using Node.js',
+      text: 'That was easy!'
+    };
+    
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+        res.status(401).json({status:0,message: error.message});
+      } else {
+        console.log('Email sent: ' + info.response);
+        res.status(200).json({status:1,message:'Email sent: ' + info.response});
+      }
+    });
+  
+    
+   
+  }
+  catch(err) {
+    console.log(err.message);
+    res.status(401).json({status:0,message: err.message});
+
+  }
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
