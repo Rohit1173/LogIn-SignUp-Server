@@ -129,12 +129,14 @@ app.get("/jwt",(req, res) => {
 
 app.post('/otp',async (req, res) => {
   try{
+    let userName=req.body.userName
     let userEmail=req.body.userEmail
+    const otp=Math.floor(1000+Math.random()*9000)
     let mailOptions = {
       from: process.env.email,
       to: userEmail,
-      subject: 'Sending Email using Node.js',
-      text: 'That was easy!'
+      subject: 'Email Verification for LogIn-SignUp App',
+      text: `Hi ${userName} , here is your otp for the Login SignUp App : ${otp}`
     };
     
     transporter.sendMail(mailOptions, function(error, info){
@@ -142,8 +144,11 @@ app.post('/otp',async (req, res) => {
         console.log(error);
         res.status(401).json({status:0,message: error.message});
       } else {
+        // const salt =  bcrypt.genSalt(10)
+        // const hashedOtp =  bcrypt.hash(otp,salt)
         console.log('Email sent: ' + info.response);
-        res.status(200).json({status:1,message:'Email sent: ' + info.response});
+
+        res.status(200).json({status:1,message:otp});
       }
     });
   
