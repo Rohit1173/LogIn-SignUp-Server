@@ -84,10 +84,10 @@ app.post('/signup', async (req, res) => {
     let x=await User.findOne({userName: userName});
     let y=await User.findOne({userEmail: userEmail});
     if(x!==null){
-      res.status(404).json({status: 0,message:"UserName Already Exists"})
+      res.status(404).json({status: 0,message:"UserName Already Exists , use a Different one"})
     }
     if(y!==null){
-      res.status(404).json({status: 0,message:"E-mail Already Exists"})
+      res.status(404).json({status: 0,message:"E-mail Already Exists try Login Instead"})
     }
     User.create(req.body,(err, user)=>{
       if(err){
